@@ -110,30 +110,30 @@ export default class App extends React.Component {
   render() {
     const { data, isLoading } = this.state;
     return (
-        <div className="App">
-          <Header onRefreshClick={this.handleRefreshClick} isLoading={isLoading} />
-          {isLoading ?
-              <div className="d-flex align-items-center justify-content-around">
-                <Loader/>
+      <div className="App">
+        <Header onRefreshClick={this.handleRefreshClick} isLoading={isLoading} />
+        {isLoading ?
+          <div className="d-flex align-items-center justify-content-around">
+            <Loader/>
+          </div>
+          :
+          <Container>
+            <div className="d-none d-sm-block">
+              <H2>Featured Movies</H2>
+              <Carousel movies={data && data.entries} updatePreviouslyWatchedList={this.handleUpdatePreviouslyWatched}/>
+              <Hr className="my-5" />
+              <H2>Previously Watched Movies</H2>
+              <Carousel movies={this.getPreviouslyWatchedMovies(data && data.entries)} updatePreviouslyWatchedList={this.handleUpdatePreviouslyWatched} />
+            </div>
+            <div className="d-sm-none">
+              <H2>Featured Movies</H2>
+              <div className="d-flex flex-wrap justify-content-around">
+                {data.entries.map((movie, index) => <Movie data={movie} key={index} mobile updatePreviouslyWatchedList={this.handleUpdatePreviouslyWatched} />)}
               </div>
-              :
-              <Container>
-                <div className="d-none d-sm-block">
-                  <H2>Featured Movies</H2>
-                  <Carousel movies={data && data.entries} updatePreviouslyWatchedList={this.handleUpdatePreviouslyWatched}/>
-                  <Hr className="my-5" />
-                  <H2>Previously Watched Movies</H2>
-                  <Carousel movies={this.getPreviouslyWatchedMovies(data && data.entries)} updatePreviouslyWatchedList={this.handleUpdatePreviouslyWatched} />
-                </div>
-                <div className="d-sm-none">
-                  <H2>Featured Movies</H2>
-                  <div className="d-flex flex-wrap justify-content-around">
-                    {data.entries.map((movie, index) => <Movie data={movie} key={index} updatePreviouslyWatchedList={this.handleUpdatePreviouslyWatched} />)}
-                  </div>
-                </div>
-              </Container>
-          }
-        </div>
+            </div>
+          </Container>
+        }
+      </div>
     );
   }
 }

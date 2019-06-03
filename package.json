@@ -29,7 +29,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "aws s3 cp build/ s3://video-library-player-example --recursive",
+    "deploy": "react-scripts build && aws s3 cp build/ s3://video-library-player-example --recursive",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

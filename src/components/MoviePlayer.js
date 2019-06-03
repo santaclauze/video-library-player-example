@@ -9,6 +9,7 @@ import { FadeIn } from '@bootstrap-styled/motion';
 
 const Wrapper = styled.div`
   position: fixed;
+  top: 0;
   width: 100%;
   height: 100%;
   overflow-y: hidden;
@@ -35,10 +36,11 @@ class MoviePlayer extends React.Component {
     close: PropTypes.func,
     theme: PropTypes.object,
     movieContent: PropTypes.object,
+    mobile: PropTypes.bool,
   };
 
   render() {
-    const { theme, close, movieContent } = this.props;
+    const { theme, close, movieContent, mobile } = this.props;
 
     return (
       <FadeIn
@@ -48,7 +50,7 @@ class MoviePlayer extends React.Component {
         <Wrapper>
           <PlayerWrapper>
             <CloseMovie onDismiss={close} />
-            <video controls autoPlay height="500" width="900" onEnded={close}>
+            <video controls autoPlay height="500" width={mobile ? '450' : '900'} onEnded={close}>
               <source src={movieContent.url} type={`video/${movieContent.format}`} />
             </video>
           </PlayerWrapper>

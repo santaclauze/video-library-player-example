@@ -14,18 +14,9 @@ import { mediaBreakpointDown } from '@bootstrap-styled/css-mixins/lib/breakpoint
 
 import MoviePlayer from './MoviePlayer';
 
-// const MovieSelect = styled.div`
-//   position: absolute;
-//   top: 0;
-//   bottom: 0;
-//   left: 0;
-//   right: 0;
-//   background-color: red;
-// `;
-
 const MovieWrapper = styled.div`
   width: 215px;
-  height: 315px;
+  height: 350px;
 `;
 
 const MovieImg = styled(Img)`
@@ -38,6 +29,7 @@ class MovieUnstyled extends React.Component {
     data: PropTypes.object,
     className: PropTypes.string,
     updatePreviouslyWatchedList: PropTypes.func,
+    mobile: PropTypes.bool,
   };
 
   state = {
@@ -98,7 +90,7 @@ class MovieUnstyled extends React.Component {
   }
 
   render() {
-    const { data, className } = this.props;
+    const { data, className, mobile } = this.props;
     const { movieBase64, movieHover } = this.state;
 
     return (
@@ -115,8 +107,7 @@ class MovieUnstyled extends React.Component {
             className="cursor-pointer movie-image"
           />
           {movieHover && (
-            <div className="movie-description text-white">
-              <P>{data.title}</P>
+            <div className="movie-description text-white p-2">
               <Small>{data.description}</Small>
               <Hr />
               <Small>Rating: {data.parentalRatings[0].rating}</Small>
@@ -134,7 +125,7 @@ class MovieUnstyled extends React.Component {
           <P className="text-white">{data.title}</P>
         </MovieWrapper>
         {this.state.movieOpen ? ReactDOM.createPortal(
-          <MoviePlayer close={this.handleCloseVideo} movieContent={data.contents[0]} />,
+          <MoviePlayer mobile={mobile} close={this.handleCloseVideo} movieContent={data.contents[0]} />,
           document.body
         ) : null}
       </Fragment>
