@@ -8,13 +8,12 @@ import { FadeIn } from '@bootstrap-styled/motion';
 
 
 const Wrapper = styled.div`
-  position: absolute;
-  top: 0;
+  position: fixed;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  overflow-y: hidden;
   background-color:rgba(0,0,0,0.6);
   display: flex;
-  overflow: hidden;
   z-index: 9999;
 `
 
