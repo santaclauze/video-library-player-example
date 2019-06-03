@@ -8,6 +8,8 @@ const mediaAppTheme = makeTheme({
   '$navbar-padding-y': '2rem',
   '$headings-color': 'white',
   '$font-size-h2': '20px',
+  '$close-color': '#fff',
+  '$close-font-size': '2rem',
 });
 
 export const makeThemeMediaApp = createMakeTheme([

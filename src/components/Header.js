@@ -56,7 +56,7 @@ export default class Header extends React.Component {
               target="tooltip-button"
               toggle={this.handleToggle}
             >
-              Refresh movie list.
+              Refresh
             </Tooltip>
           </Container>
       </Navbar>

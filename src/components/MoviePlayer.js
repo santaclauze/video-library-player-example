@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
 import {
   Close,
+  Tooltip,
 } from '@bootstrap-styled/v4';
 import { FadeIn } from '@bootstrap-styled/motion';
+import Container from "./Container";
 
 
 const Wrapper = styled.div`
@@ -23,11 +25,16 @@ const PlayerWrapper = styled.div`
   position: relative;
 `
 
+
 const CloseMovie = styled(Close)`
-  position: absolute;
-  top: 15px;
-  right: 25px;
-  z-index: 9999;
+  ${props => `
+    position: absolute;
+    top: ${props.mobile ? '90px' : '15px'};
+    right: ${props.mobile ? '5px' : '25px'};
+    z-index: 9999;
+    opacity: 1 !important;
+  `}
+
 `;
 
 class MoviePlayer extends React.Component {
@@ -39,8 +46,19 @@ class MoviePlayer extends React.Component {
     mobile: PropTypes.bool,
   };
 
+  state = {
+    isOpen: false,
+  }
+
+  handleToggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    })
+  }
+
   render() {
     const { theme, close, movieContent, mobile } = this.props;
+    const { isOpen } = this.state;
 
     return (
       <FadeIn
@@ -49,7 +67,15 @@ class MoviePlayer extends React.Component {
       >
         <Wrapper>
           <PlayerWrapper>
-            <CloseMovie onDismiss={close} />
+            <CloseMovie onDismiss={close} mobile={mobile} id="close-tooltip" />
+            <Tooltip
+                placement="left"
+                isOpen={isOpen}
+                target="close-tooltip"
+                toggle={this.handleToggle}
+            >
+              Close
+            </Tooltip>
             <video controls autoPlay height="500" width={mobile ? '450' : '900'} onEnded={close}>
               <source src={movieContent.url} type={`video/${movieContent.format}`} />
             </video>
